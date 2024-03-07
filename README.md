@@ -4,7 +4,7 @@
 ## How to start
 
 ### Ⅰ. modify the root path 
-- modify the injector.cpp 
+- modify the `./injector/injector.cpp`
 ```cpp
 wcscpy_s(DirPath, MAX_PATH, L"...\\DetoursDll\\x64\\Debug");
 GetCurrentDirectory(MAX_PATH, DirPath);
@@ -12,11 +12,18 @@ char DLLPath[MAX_PATH + 1] = "...\\DetoursDll\\x64\\Debug\\DetoursDll.dll";
 ```
 - compile the injector.cpp again，noticing Select the VC++ directory in the configuration properties, add the include folder path you just compiled to the include directory, and add lib.X86 to the library directory (for 64-bit systems, lib.X64).
 
+- modify `./Backend/serverThread/websocketServer.py`
+```python
+if os.path.exists(message['path']):
+  targetProcess = subprocess.Popen(["...\\injector\\x64\\Debug\\Injector.exe",message['path']],shell=True)    
+  server.send_message(client, "start success")
+  return
+```
 ### Ⅱ. Start pipe
  
-- cd Vueapp Dirpath 
-- pip `requirements`
+- cd Backend Dirpath 
 - open cmd
+- pip `requirements`
 - input
     ```py
         python app.py
@@ -30,13 +37,27 @@ char DLLPath[MAX_PATH + 1] = "...\\DetoursDll\\x64\\Debug\\DetoursDll.dll";
     npm run dev
   ```
 
-### Ⅳ. testCode deploy
+### Ⅳ. TestProgram deploy
 
 - click the ChartPieIcon
 - click the Button
 - Input the root path of testCode.exe 
 - click the initWebsocket
 - start to test
+- socket test
+  - open `TestProgram/socket/x64/socket.exe`
+  - click **socket客户端合集**
+
+## Demonstrate
+- **Start**
+![](./pic/demo1.png)
+- **Common API Test**
+![](./pic/demo2.png)
+- **Socket Test**
+![](./pic/demo3.png)
+- **Message Box**
+![](./pic/demo4.png)
+
 
 
 
